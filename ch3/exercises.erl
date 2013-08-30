@@ -1,5 +1,5 @@
 -module(exercises).
--export([sum/1, sum/2, create/1, reverse_create/1, print/1]).
+-export([sum/1, sum/2, create/1, reverse_create/1, print/1, evenprint/1]).
 
 sum(N) when N == 0 -> N;
 sum(N) -> N + sum(N-1).
@@ -22,3 +22,11 @@ print(M, N) when N < M -> 0;
 print(M, N) -> 
 	io:format("Number:~p~n", [M]),
 	print(M+1, N).
+
+evenprint(N) ->
+	evenprint(1, N).
+evenprint(M, N) when N < M -> 0;
+evenprint(M, N) when M rem 2 == 0 ->
+	io:format("Number:~p~n", [M]),
+	evenprint(M+1, N);
+evenprint(M, N) -> evenprint(M+1, N).
