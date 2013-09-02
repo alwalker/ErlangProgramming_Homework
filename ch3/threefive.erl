@@ -1,5 +1,5 @@
 -module(threefive).
--export([filter/2, reverse/1, concatenate/1]).
+-export([filter/2, reverse/1, concatenate/1, flatten/1]).
 
 filter(Int, Ints) -> 
 	Result = filter(Int, Ints, []),
@@ -20,3 +20,8 @@ concatenate([Head | Tail], NewList) -> concatenate(Tail, add_to_list(Head, NewLi
 
 add_to_list([], NewList) -> NewList;
 add_to_list([Head | Tail], NewList) -> add_to_list(Tail, [Head | NewList]).
+
+flatten(List) -> flatten(List, []).
+flatten([], NewList) -> NewList;
+flatten([[Head | InnerTail] | OuterTail], NewList) when not(is_list(Head)) -> flatten(OuterTail, add_to_list([Head | InnerTail], NewList));
+flatten([Head | Tail], NewList) -> flatten(Tail, concatenate(Head, NewList)).
